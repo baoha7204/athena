@@ -1,5 +1,11 @@
+import SlideImage from '~/components/Home/SlideImage';
+
 function Home() {
-    return <h2>Home page</h2>;
+    return (
+        <>
+            <SlideImage />
+        </>
+    );
 }
 
 export default Home;
