@@ -5,9 +5,9 @@
     // color definitions
     --color-white: rgb(255, 255, 255);
     --color-black: rgb(0, 0, 0);
-    --color-gray-1: rgb(179, 179, 179);
+    --color-gray-1: #b3b3b3;
     --color-gray-2: rgb(84, 84, 84);
-    --color-gray-3: rgb(18, 18, 18);
+    --color-gray-3: #121212;
     --color-blue-1: rgb(143, 199, 255);
     --color-blue-2: rgb(46, 141, 238);
     --color-blue-3: rgb(32, 129, 226);
@@ -26,6 +26,9 @@
     --color-text-secondary: var(--color-gray-1);
     --color-primary: var(--color-gray-3);
     --color-secondary: rgba(255, 255, 255, 0.12);
+
+    // Default layout
+    --default-layout-header-height: 72px;
 }
 
 html {
