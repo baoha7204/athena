@@ -1,6 +1,10 @@
-import { IconButton, Input } from '@material-tailwind/react';
+import { Input } from '@material-tailwind/react';
 import { useDispatch, useSelector } from 'react-redux';
+import { debounce } from 'lodash';
 import { clearSearchTerm, selectSearchTerm, setSearchTerm } from './searchSlice';
+import SearchingResults from '../searchResults/SearchResults';
+import { loadAccounts, loadCollections } from '../searchResults/searchResultsSlice';
+import { useRef } from 'react';
 
 function Search() {
     const dispatch = useDispatch();
@@ -8,11 +12,21 @@ function Search() {
 
     const onSearchChangeHandler = (e) => {
         dispatch(setSearchTerm(e.target.value));
+        if (searchTerm.length > 0) {
+            debouncedSearch();
+        }
     };
 
     const onSearchClearHandler = () => {
         dispatch(clearSearchTerm());
     };
+    const debouncedSearch = useRef(
+        debounce(() => {
+            console.log('Dispatching...');
+            dispatch(loadCollections());
+            dispatch(loadAccounts());
+        }, 1000),
+    ).current;
     return (
         <div className="hidden items-center h-16 gap-x-2 lg:flex">
             <div className="relative flex w-full h-full gap-2 md:w-max items-center">
@@ -29,7 +43,7 @@ function Search() {
                     spellCheck="false"
                     value={searchTerm}
                     onChange={onSearchChangeHandler}
-                    icon={searchTerm.length > 0 && <i onClick={onSearchClearHandler} class="fa-light fa-x" />}
+                    icon={searchTerm.length > 0 && <i onClick={onSearchClearHandler} className="fa-light fa-x" />}
                 />
                 <div className="!absolute left-3">
                     <svg width="13" height="14" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,6 +59,9 @@ function Search() {
                             strokeLinejoin="round"
                         />
                     </svg>
+                </div>
+                <div className="!absolute top-24 w-full z-[9999] max-h-[400px] overflow-auto rounded-xl">
+                    <SearchingResults />
                 </div>
             </div>
         </div>

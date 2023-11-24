@@ -7,9 +7,9 @@ const cx = classNames.bind(styles);
 function Header() {
     return (
         <header className={cx('wrapper')}>
-            <div className='flex items-center justify-between w-full h-full mx-4 max-w-[2560px] sm:mx-8 xl:mx-16'>
+            <div className="flex items-center justify-between w-full h-full mx-4 max-w-[2560px] sm:mx-8 xl:mx-16">
                 <div>Explore</div>
-                <Search className=''/>
+                <Search />
                 <div>Profile</div>
             </div>
         </header>
