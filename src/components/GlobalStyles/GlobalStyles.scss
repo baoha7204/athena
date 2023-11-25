@@ -27,12 +27,16 @@
     --color-primary: var(--color-gray-3);
     --color-secondary: rgba(255, 255, 255, 0.12);
 
+    --shadow-elevation: 0px 4px 16px rgb(var(--color-black) / 8%);
+
     // Default layout
     --default-layout-header-height: 72px;
 }
 
 html {
     font-size: 62.5%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 * {
@@ -47,4 +51,13 @@ body {
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizespeed;
+}
+
+.myContainer {
+    width: 100%;
+    background-color: var(--color-primary);
+}
+
+.shadow-elevation {
+    box-shadow: 0 0 #0000, 0 0 #0000, var(--shadow-elevation);
 }

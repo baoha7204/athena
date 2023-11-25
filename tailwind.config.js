@@ -16,6 +16,7 @@ module.exports = withMT({
                 "tertiary-primary": '#ffffff14',
                 "secondary": '#ffffff1f',
                 'semi-secondary': '#2e2e2e',
+                'elevation': '#202020'
             },
         },
     },

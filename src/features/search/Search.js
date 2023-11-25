@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Input } from '@material-tailwind/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
