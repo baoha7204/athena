@@ -9,16 +9,16 @@ const initialState = {
     hasAccountsError: false,
 };
 
-export const loadCollections = createAsyncThunk('searchResults/loadCollections', async () => {
+export const loadCollections = createAsyncThunk('searchResults/loadCollections', async (searchTerm) => {
     console.log('loading collections...');
-    const data = await fetch('api/collections');
+    const data = await fetch(`api/collections?search=${searchTerm}`);
     const json = await data.json();
     return json;
 });
 
-export const loadAccounts = createAsyncThunk('searchResults/loadAccounts', async () => {
+export const loadAccounts = createAsyncThunk('searchResults/loadAccounts', async (searchTerm) => {
     console.log('loading accounts...');
-    const data = await fetch('api/accounts');
+    const data = await fetch(`api/accounts?search=${searchTerm}`);
     const json = await data.json();
     return json;
 });
@@ -26,7 +26,14 @@ export const loadAccounts = createAsyncThunk('searchResults/loadAccounts', async
 export const searchResultsSlice = createSlice({
     name: 'searchResults',
     initialState,
-    reducers: {},
+    reducers: {
+        clearCollections: (state) => {
+            state.collections = [];
+        },
+        clearAccounts: (state) => {
+            state.accounts = [];
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(loadCollections.pending, (state) => {
@@ -57,7 +64,7 @@ export const searchResultsSlice = createSlice({
             });
     },
 });
-
+export const { clearCollections, clearAccounts } = searchResultsSlice.actions;
 export const selectSearchedAccounts = (state) => state.searchResults.accounts;
 export const selectSearchedCollections = (state) => state.searchResults.collections;
 export const isLoadingCollections = (state) => state.searchResults.isCollectionsLoading;

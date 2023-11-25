@@ -1,7 +1,7 @@
 import { Avatar, ListItem, ListItemPrefix, ListItemSuffix, Typography } from '@material-tailwind/react';
 
 function SearchingResult({ result }) {
-    const { avt, name, numOfItems, price } = result;
+    const { avt, name, quantity, price } = result;
 
     return (
         <ListItem className="hover:bg-semi-primary active:bg-tertiary-primary focus:bg-tertiary-primary min-h-[56px]">
@@ -12,7 +12,7 @@ function SearchingResult({ result }) {
                 <Typography variant="h4" color="white">
                     {name}
                 </Typography>
-                {numOfItems > 0 && (
+                {quantity > 0 && (
                     <div className="flex items-center">
                         <svg
                             fill="gray"
@@ -29,7 +29,7 @@ function SearchingResult({ result }) {
                             ></path>
                         </svg>
                         <Typography variant="h5" className="text-text-secondary ml-2">
-                            {`${numOfItems} item` + (numOfItems > 1 ? 's' : '')}
+                            {`${quantity} item` + (quantity > 1 ? 's' : '')}
                         </Typography>
                     </div>
                 )}

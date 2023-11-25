@@ -1,10 +1,10 @@
+import { useCallback, useEffect, useRef } from 'react';
 import { Input } from '@material-tailwind/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 import { clearSearchTerm, selectSearchTerm, setSearchTerm } from './searchSlice';
 import SearchingResults from '../searchResults/SearchResults';
-import { loadAccounts, loadCollections } from '../searchResults/searchResultsSlice';
-import { useRef } from 'react';
+import { clearAccounts, clearCollections, loadAccounts, loadCollections } from '../searchResults/searchResultsSlice';
 
 function Search() {
     const dispatch = useDispatch();
@@ -12,21 +12,32 @@ function Search() {
 
     const onSearchChangeHandler = (e) => {
         dispatch(setSearchTerm(e.target.value));
-        if (searchTerm.length > 0) {
-            debouncedSearch();
-        }
     };
 
     const onSearchClearHandler = () => {
+        console.log(1);
         dispatch(clearSearchTerm());
     };
+
     const debouncedSearch = useRef(
-        debounce(() => {
+        debounce((search) => {
             console.log('Dispatching...');
-            dispatch(loadCollections());
-            dispatch(loadAccounts());
+            dispatch(loadCollections(search));
+            dispatch(loadAccounts(search));
         }, 1000),
     ).current;
+
+    useEffect(() => {
+        if (searchTerm.length > 0) {
+            debouncedSearch(searchTerm);
+        }
+    }, [onSearchChangeHandler]);
+
+    useEffect(() => {
+        dispatch(clearCollections());
+        dispatch(clearAccounts());
+    }, [onSearchClearHandler]);
+
     return (
         <div className="hidden items-center h-16 gap-x-2 lg:flex">
             <div className="relative flex w-full h-full gap-2 md:w-max items-center">

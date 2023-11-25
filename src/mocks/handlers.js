@@ -3,8 +3,29 @@ import accountsData from './accounts.json';
 import collectionsData from './collections.json';
 
 export const handlers = [
+    http.get('/api/accounts/:accountId', async ({ params }) => {
+        await delay(2000);
+        const { accountId } = params;
+        return HttpResponse.json(
+            accountsData.find((account) => account.id === parseInt(accountId)),
+            { status: 200 },
+        );
+    }),
+    http.get('/api/accounts', async ({ request }) => {
+        await delay(2000);
+        const url = new URL(request.url);
+        let searchTerm = url.searchParams.get('search');
+        if (!searchTerm) {
+            return new HttpResponse(null, { status: 404 });
+        }
+        searchTerm = searchTerm.trim().toLowerCase();
+        const searchedAccounts = accountsData.filter((account) => {
+            return account.name.toLowerCase().includes(searchTerm);
+        });
+        return HttpResponse.json(searchedAccounts, { status: 200 });
+    }),
     http.get('/api/accounts', async () => {
-        await delay(1000);
+        await delay(2000);
         return HttpResponse.json(
             accountsData.map((account) => ({
                 id: account.id,
@@ -14,32 +35,37 @@ export const handlers = [
             { status: 200 },
         );
     }),
-    http.get('/api/accounts/:accountId', async ({ params }) => {
-        await delay(1000);
-        const { accountId } = params;
+    http.get('/api/collections', async ({ request }) => {
+        await delay(2000);
+        const url = new URL(request.url);
+        let searchTerm = url.searchParams.get('search');
+        if (!searchTerm) {
+            return new HttpResponse(null, { status: 404 });
+        }
+        searchTerm = searchTerm.trim().toLowerCase();
+        const cearchedCollections = collectionsData.filter((collection) => {
+            return collection.name.toLowerCase().includes(searchTerm);
+        });
+        return HttpResponse.json(cearchedCollections, { status: 200 });
+    }),
+    http.get('/api/collections/:collectionId', async ({ params }) => {
+        await delay(2000);
+        const { collectionId } = params;
         return HttpResponse.json(
-            accountsData.find((account) => account.id === parseInt(accountId)),
+            collectionsData.find((collection) => collection.id === parseInt(collectionId)),
             { status: 200 },
         );
     }),
     http.get('/api/collections', async () => {
-        await delay(1000);
+        await delay(2000);
         return HttpResponse.json(
             collectionsData.map((collection) => ({
                 id: collection.id,
                 name: collection.name,
                 avt: collection.avt,
-                numOfItems: collection.numOfItems,
+                quantity: collection.quantity,
                 price: collection.price,
             })),
-            { status: 200 },
-        );
-    }),
-    http.get('/api/collections/:collectionId', async ({ params }) => {
-        await delay(1000);
-        const { collectionId } = params;
-        return HttpResponse.json(
-            collectionsData.find((collection) => collection.id === parseInt(collectionId)),
             { status: 200 },
         );
     }),
