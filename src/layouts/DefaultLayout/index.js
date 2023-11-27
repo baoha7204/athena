@@ -7,7 +7,7 @@ function DefaultLayout({ children }) {
             <Header />
             <div className="myContainer">
                 <Sidebar />
-                <div className="content">{children}</div>
+                <div className="content px-[32px]">{children}</div>
             </div>
         </div>
     );

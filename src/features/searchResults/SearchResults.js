@@ -44,7 +44,7 @@ function SearchingResults() {
                         accounts
                     </Typography>
                     {searchedAccounts.map((account) => {
-                        return <SearchingResult result={account} />;
+                        return <SearchingResult data={account} />;
                     })}
                 </List>
             )}

@@ -35,7 +35,7 @@ export const handlers = [
             { status: 200 },
         );
     }),
-    http.get('/api/collections', async ({ request }) => {
+    http.get('/api/collections?search=', async ({ request }) => {
         await delay(2000);
         const url = new URL(request.url);
         let searchTerm = url.searchParams.get('search');
@@ -57,6 +57,19 @@ export const handlers = [
         );
     }),
     http.get('/api/collections', async () => {
+        await delay(2000);
+        return HttpResponse.json(
+            collectionsData.map((collection) => ({
+                id: collection.id,
+                name: collection.name,
+                avt: collection.avt,
+                quantity: collection.quantity,
+                price: collection.price,
+            })),
+            { status: 200 },
+        );
+    }),
+    http.get('/api/spotlights', async () => {
         await delay(2000);
         return HttpResponse.json(
             collectionsData.map((collection) => ({
