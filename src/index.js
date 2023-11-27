@@ -1,15 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from '~/App';
+import { Provider } from 'react-redux';
+import { ThemeProvider } from '@material-tailwind/react';
+import App from '~/app/App';
+import { store } from '~/app/store';
 import GlobalStyles from '~/components/GlobalStyles';
 import reportWebVitals from '~/reportWebVitals';
 import '~/index.css';
 
+const { worker } = require('~/mocks/browser');
 const root = ReactDOM.createRoot(document.getElementById('root'));
+worker.start();
+
+if (process.env.NODE_ENV === 'development') {
+    require('./mocks/browser');
+}
+
 root.render(
     <React.StrictMode>
         <GlobalStyles>
-            <App />
+            <Provider store={store}>
+                <ThemeProvider>
+                    <App />
+                </ThemeProvider>
+            </Provider>
         </GlobalStyles>
     </React.StrictMode>,
 );

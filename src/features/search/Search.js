@@ -1,7 +1,10 @@
-import { IconButton, Input } from '@material-tailwind/react';
+import { useEffect, useRef } from 'react';
+import { Input } from '@material-tailwind/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearSearchTerm, selectSearchTerm, setSearchTerm } from './SearchSlice';
-
+import { debounce } from 'lodash';
+import { clearSearchTerm, selectSearchTerm, setSearchTerm } from './searchSlice';
+import SearchingResults from '../searchResults/SearchResults';
+import { clearAccounts, clearCollections, loadAccounts, loadCollections } from '../searchResults/searchResultsSlice';
 
 function Search() {
     const dispatch = useDispatch();
@@ -12,8 +15,29 @@ function Search() {
     };
 
     const onSearchClearHandler = () => {
+        console.log(1);
         dispatch(clearSearchTerm());
     };
+
+    const debouncedSearch = useRef(
+        debounce((search) => {
+            console.log('Dispatching...');
+            dispatch(loadCollections(search));
+            dispatch(loadAccounts(search));
+        }, 1000),
+    ).current;
+
+    useEffect(() => {
+        if (searchTerm.length > 0) {
+            debouncedSearch(searchTerm);
+        }
+    }, [onSearchChangeHandler]);
+
+    useEffect(() => {
+        dispatch(clearCollections());
+        dispatch(clearAccounts());
+    }, [onSearchClearHandler]);
+
     return (
         <div className="hidden items-center h-16 gap-x-2 lg:flex">
             <div className="relative flex w-full h-full gap-2 md:w-max items-center">
@@ -30,7 +54,7 @@ function Search() {
                     spellCheck="false"
                     value={searchTerm}
                     onChange={onSearchChangeHandler}
-                    icon={searchTerm.length > 0 && <i onClick={onSearchClearHandler} class="fa-light fa-x" />}
+                    icon={searchTerm.length > 0 && <i onClick={onSearchClearHandler} className="fa-light fa-x" />}
                 />
                 <div className="!absolute left-3">
                     <svg width="13" height="14" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,6 +70,9 @@ function Search() {
                             strokeLinejoin="round"
                         />
                     </svg>
+                </div>
+                <div className="!absolute top-24 w-full z-[9999] max-h-[400px] overflow-auto rounded-xl">
+                    <SearchingResults />
                 </div>
             </div>
         </div>

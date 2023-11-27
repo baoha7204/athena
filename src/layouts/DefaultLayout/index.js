@@ -5,9 +5,9 @@ function DefaultLayout({ children }) {
     return (
         <div>
             <Header />
-            <div className="container">
+            <div className="myContainer">
                 <Sidebar />
-                <div className="content">{children}</div>
+                <div className="content px-[32px]">{children}</div>
             </div>
         </div>
     );
