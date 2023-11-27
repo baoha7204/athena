@@ -22,3 +22,9 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+@layer components {
+    .webkit-inline-box {
+        display: -webkit-inline-box;
+    }
+}

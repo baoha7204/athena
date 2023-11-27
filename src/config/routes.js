@@ -9,6 +9,7 @@ const routes = {
     profile: '/@:nickname',
     upload: '/upload',
     stats: '/stats',
+    collection: '/collection',
 };
 
 export default routes;
