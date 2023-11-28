@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Input } from '@material-tailwind/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
-import { clearSearchTerm, selectSearchTerm, setSearchTerm } from './searchSlice';
+import { clearSearchTerm, selectSearchTerm, setSearchTerm } from './SearchSlice';
 import SearchingResults from '../searchResults/SearchResults';
 import { clearAccounts, clearCollections, loadAccounts, loadCollections } from '../searchResults/searchResultsSlice';
 

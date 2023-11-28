@@ -6,8 +6,7 @@ import {
 } from "@material-tailwind/react";
 
 
-
-export default function LoginCard() {
+export const LoginCard = () => {
     return (
         <div className="flex items-center justify-center h-screen divide-x">
             <Card className="flex w-[1000px] h-[600px] bg-white overflow-hidden shadow-md border border-gray-300" style={{ borderRadius: '10px' }}>
