@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 export default function BottomBanner({ des, items, creatorEarnings, created }) {
     const [desExpanded, setDesExpanded] = useState(false);
     const ItemList = ({ name, value }) => (
-        <li className="mr-6">
+        <li className="mr-6 text-text-secondary">
             <span className="mr-2 font-light">{name}</span>
-            <span className="font-medium">{value}</span>
+            <span className="font-semibold">{value}</span>
         </li>
     );
     return (
-        <div className="w-full container mx-auto py-8">
+        <div className="w-full container mx-auto py-8 text-text-primary">
             <div className="">
                 <span
                     className={` w-1/2 ${

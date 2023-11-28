@@ -4,7 +4,7 @@ function HeaderOnly({ children }) {
     return (
         <div>
             <Header />
-            <div className="">
+            <div className="bg-primary">
                 <div className="content">{children}</div>
             </div>
         </div>
